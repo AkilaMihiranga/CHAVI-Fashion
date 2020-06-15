@@ -1,0 +1,18 @@
+.Content{
+    width: 85%;
+    border-top: 3px solid #000;
+    margin: 0 auto;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.ContentTitle{
+    text-align: center;
+    margin: 20px 0;
+}
+.CategoryTitle{
+    letter-spacing: 2px;
+    font-size: 30px;
+    font-weight: 300;
+    text-transform: capitalize;
+}
