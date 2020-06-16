@@ -76,7 +76,7 @@ export default class AddAdmin extends Component {
                 password: this.state.password
             }
     
-            axios.post('http://localhost:5000/admin/add-admin', admin)
+            axios.post('/admin/add-admin', admin)
                 .then(res => console.log(res.data));
     
             window.location = '/admins-list';

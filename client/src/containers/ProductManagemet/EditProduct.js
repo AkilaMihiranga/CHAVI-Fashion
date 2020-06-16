@@ -30,7 +30,7 @@ export default class EditProduct extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/product/edit-page/'+this.props.match.params.id)
+        axios.get('/product/edit-page/'+this.props.match.params.id)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -103,7 +103,7 @@ export default class EditProduct extends Component {
             category: this.state.category
         }
 
-        axios.post('http://localhost:5000/product/update/'+this.props.match.params.id, products)
+        axios.post('/product/update/'+this.props.match.params.id, products)
             .then(res => console.log(res.data));
 
         window.location = '/product-list';

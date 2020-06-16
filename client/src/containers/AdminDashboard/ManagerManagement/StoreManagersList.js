@@ -30,7 +30,7 @@ export default class StoreManagersList extends Component{
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/storeManager/')
+        axios.get('/storeManager/')
             .then(response => {
                 this.setState({
                     managers: response.data.data.filter(el => el.userRole === 'storeManager')
@@ -42,7 +42,7 @@ export default class StoreManagersList extends Component{
     }
 
     deleteStoreManager(id) {
-        axios.delete('http://localhost:5000/storeManager/' +id)
+        axios.delete('/storeManager/' +id)
             .then(res => console.log(res.data));
 
         this.setState({

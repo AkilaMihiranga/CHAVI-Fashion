@@ -8,7 +8,6 @@ import CartPrice from '../../components/CartPrice/index';
 import DeliveryAddress from './DeliveryAddress/DeliveryAddressIndex';
 import RadioButton from '../../components/UI/RadioButton';
 import * as cartActions from '../../actions/cartAction';
-import { base_url } from '../../constants/index';
 import Footer from '../../components/Footer/index';
 
 class PlaceOrder extends Component{
@@ -63,7 +62,7 @@ class PlaceOrder extends Component{
 
     getAddresses = () => {
         const user_id = this.props.auth.user.user_id;
-        fetch(`${base_url}/user/get-addresses/`+user_id, {
+        fetch(`/user/get-addresses/`+user_id, {
             headers: {
                 'auth-token': this.props.auth.token
             }
@@ -124,7 +123,7 @@ class PlaceOrder extends Component{
             address: this.state.address
         }
 
-       fetch(`${base_url}/user/new-address`, {
+       fetch(`/user/new-address`, {
             headers: {
                 'Content-Type': 'application/json',
                 'auth-token': this.props.auth.token
@@ -196,7 +195,7 @@ class PlaceOrder extends Component{
 
         try{
 
-            const response = await fetch(`${base_url}/order/create`,{
+            const response = await fetch(`/order/create`,{
                 headers: {
                     'Content-Type': 'application/json',
                     'auth-token': this.props.auth.token
@@ -316,7 +315,7 @@ class PlaceOrder extends Component{
                                             this.props.cart.cartItem.map(item => (
                                                 <div key={item.product} style={{display: 'flex', margin: '5px 0', alignItems: 'center'}}>
                                                     <div style={{width: '60px', height: '60px', overflow: 'hidden', position: 'relative'}}>
-                                                        <img style={{maxWidth: '100%', maxHeight: '100%', position: 'absolute', left: '50%', transform: 'translateX(-50%)'}} src={`http://localhost:5000/${item.image}`} alt="" />
+                                                        <img style={{maxWidth: '100%', maxHeight: '100%', position: 'absolute', left: '50%', transform: 'translateX(-50%)'}} src={`/${item.image}`} alt="" />
                                                     </div>
                                                     <div>
                                                         <h5>{item.name}</h5>

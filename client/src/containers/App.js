@@ -82,7 +82,7 @@ function App() {
                         <PrivateRoute path="/wishlist" component={Wishlist} />
 
                         <PrivateRoute path="/place-order" component={PlaceOrder} />
-                        <PrivateRoute path="/products/all" component={allproduct} />
+                        <Route path="/products/all" component={allproduct} />
 
                         <Route path="/all-orders" component={AllOrders} />
                         

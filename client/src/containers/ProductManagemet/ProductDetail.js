@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Header from "../../components/Header/Header";
 import ProductImageGallery from "./ProductImageGallery";
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as cartActions from '../../actions/cartAction';
 import * as authActions from '../../actions/authActions';
@@ -46,7 +45,7 @@ class ProductDetail extends Component{
             comment: this.state.comment
         }
 
-        axios.post('http://localhost:5000/comment/saveComment', comments)
+        axios.post('/comment/saveComment', comments)
             .then(res => console.log(res.data));
 
         window.location = '/product/'+this.props.match.params.productId;
@@ -75,7 +74,7 @@ class ProductDetail extends Component{
         }
 
         const id = this.props.match.params.productId;
-        axios.get(`http://localhost:5000/product/product_id?id=${id}&type=single`)//get product details using product id
+        axios.get(`/product/product_id?id=${id}&type=single`)//get product details using product id
             .then(response => {
                 this.setState({
                     product: response.data[0]
@@ -85,7 +84,7 @@ class ProductDetail extends Component{
                 console.log(error);
             });
 
-        axios.get('http://localhost:5000/comment/get-comment')
+        axios.get('/comment/get-comment')
         .then(response => {
             this.setState({
                 Comments: response.data.data.filter(el => el.postId === id)
@@ -203,7 +202,6 @@ class ProductDetail extends Component{
                             
                                         <br/>
                                         <button type="submit" className="btn btn-warning btn-block">Add Comment</button>
-                                        <a href="" className="btn btn-danger btn-block">Cancel</a>
 
                                      </form>
                                      </div>

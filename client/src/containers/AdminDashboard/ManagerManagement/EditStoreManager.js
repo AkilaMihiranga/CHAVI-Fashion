@@ -25,7 +25,7 @@ export default class EditStoreManager extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/storeManager/'+this.props.match.params.id)
+        axios.get('/storeManager/'+this.props.match.params.id)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -84,7 +84,7 @@ export default class EditStoreManager extends Component {
                 contact_Number: this.state.contact_Number
             }
     
-            axios.post('http://localhost:5000/storeManager/update/'+this.props.match.params.id, admin)
+            axios.post('/storeManager/update/'+this.props.match.params.id, admin)
                 .then(res => console.log(res.data));
     
             window.location = '/store-managers-list';

@@ -51,7 +51,7 @@ export default class UpdatePassword extends Component {
                 newPassword: this.state.newPassword
             }
     
-            axios.post('http://localhost:5000/user/update-password/'+this.props.match.params.id, updatePassword)
+            axios.post('/user/update-password/'+this.props.match.params.id, updatePassword)
                 .then(res => {
                     console.log(res.data);
                     const successMsg = "Pofile Details Successfully Updated.!";
@@ -157,7 +157,9 @@ export default class UpdatePassword extends Component {
                         </div>
                     </div>
                 </div><br/><br/><br/>
+                <div style={{marginTop: '225px'}}>
                 <Footer />
+                </div>
             </div>   
         );
     }

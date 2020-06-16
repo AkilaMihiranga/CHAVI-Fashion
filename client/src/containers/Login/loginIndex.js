@@ -125,8 +125,11 @@ class Login extends Component {
                         <p className="lead mt-4">No Account? <Link style={{color: "DODGERBLUE"}} to="/signup">Register</Link></p>
                     </div>
                 </div>
-            </div><br/><br/><br/>
-            <Footer />
+            </div>
+            <br/><br/><br/>
+            <div style={{marginTop: '225px'}}>
+                <Footer />
+                </div>
             </div>
         );
     }

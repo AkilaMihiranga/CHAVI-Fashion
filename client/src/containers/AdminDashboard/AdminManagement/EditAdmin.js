@@ -26,7 +26,7 @@ export default class EditAdmin extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/admin/'+this.props.match.params.id)
+        axios.get('/admin/'+this.props.match.params.id)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -85,7 +85,7 @@ export default class EditAdmin extends Component {
                 contact_Number: this.state.contact_Number
             }
     
-            axios.post('http://localhost:5000/admin/update/'+this.props.match.params.id, admin)
+            axios.post('/admin/update/'+this.props.match.params.id, admin)
                 .then(res => console.log(res.data));
     
             window.location = '/admins-list';

@@ -47,7 +47,7 @@ export default class AddCategory extends Component {
             category_parent: this.state.category_parent
         }
 
-        axios.post('http://localhost:5000/category/add-category', category)
+        axios.post('/category/add-category', category)
             .then(res => console.log(res.data));
 
         window.location = '/category-list';

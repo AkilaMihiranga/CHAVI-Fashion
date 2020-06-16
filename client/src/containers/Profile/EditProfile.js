@@ -27,7 +27,7 @@ export default class EditProfile extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/user/'+this.props.match.params.id)
+        axios.get('/user/'+this.props.match.params.id)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -86,7 +86,7 @@ export default class EditProfile extends Component {
                 contact_Number: this.state.contact_Number
             }
     
-            axios.post('http://localhost:5000/user/update/'+this.props.match.params.id, updateProfile)
+            axios.post('/user/update/'+this.props.match.params.id, updateProfile)
                 .then(res => {
                     console.log(res.data);
                     const successMsg = "Pofile Details Successfully Updated.!";
@@ -224,7 +224,9 @@ export default class EditProfile extends Component {
                         </div>
                     </div>
                 </div><br/><br/><br/>
+                <div style={{marginTop: '100px'}}>
                 <Footer />
+                </div>
             </div>   
         );
     }

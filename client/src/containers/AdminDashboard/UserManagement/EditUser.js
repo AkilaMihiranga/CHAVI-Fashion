@@ -26,7 +26,7 @@ export default class EditUser extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/user/'+this.props.match.params.id)
+        axios.get('/user/'+this.props.match.params.id)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -87,7 +87,7 @@ export default class EditUser extends Component {
     
             console.log(user);
     
-            axios.post('http://localhost:5000/user/update/'+this.props.match.params.id, user)
+            axios.post('/user/update/'+this.props.match.params.id, user)
                 .then(res => console.log(res.data));
     
             window.location = '/users-list';

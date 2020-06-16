@@ -21,7 +21,7 @@ export default class EditCategory extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/category/'+this.props.match.params.id)
+        axios.get('/category/'+this.props.match.params.id)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -63,7 +63,7 @@ export default class EditCategory extends Component {
             category_parent: this.state.category_parent
         }
 
-        axios.post('http://localhost:5000/category/update/'+this.props.match.params.id, category)
+        axios.post('/category/update/'+this.props.match.params.id, category)
             .then(res => console.log(res.data));
 
         window.location = '/category-list';

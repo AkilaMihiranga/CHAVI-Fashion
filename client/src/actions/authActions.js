@@ -1,12 +1,10 @@
-import { base_url } from "../constants/index";
-
 export const AUTHENTICATE_USER = 'AUTHENTICATE_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const signup = (user) => {
     return async dispatch => {
         try{
-            const response = await fetch(`${base_url}/user/register`, {
+            const response = await fetch(`/user/register`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accepts': 'application/json'
@@ -31,7 +29,7 @@ export const signup = (user) => {
 
 export const authenticate = (email, password) => {
     return async dispatch => {
-        const response = await fetch(`${base_url}/user/login`, {
+        const response = await fetch(`/user/login`, {
             headers: {
                 'Content-Type' : 'application/json',
                 'Accepts': 'application/json'

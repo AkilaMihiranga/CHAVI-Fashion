@@ -13,7 +13,7 @@ function ImageUpload(props) {
         }
         formData.append("file", files[0]);
         
-        axios.post('http://localhost:5000/product/uploadImage', formData, config)
+        axios.post('/product/uploadImage', formData, config)
             .then(response => {
                 if (response.data.success) {
                       
@@ -65,7 +65,7 @@ function ImageUpload(props) {
 
                 {Product_image.map((image, index) => (
                     <div key={index} onClick={() => onDeleteImage(image)}>
-                        <img style={{ minWidth: '300px', width: '300px', height: '240px' }} src={`http://localhost:5000/${image}`} alt={`productImg-${index}`} />
+                        <img style={{ minWidth: '300px', width: '300px', height: '240px' }} src={`/${image}`} alt={`productImg-${index}`} />
                     </div>
                 ))}
 

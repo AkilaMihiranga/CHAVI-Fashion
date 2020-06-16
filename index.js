@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv/config');
+const path = require('path');
 
 const app = express();
 //assign port number
@@ -43,6 +44,16 @@ app.use('/wishlist', wishlistItemRoutes);
 mongoose.connect(process.env.MongoDB_CONNECTION,{ useCreateIndex:true, useNewUrlParser: true, useUnifiedTopology: true }, () =>
     console.log('MongoDB database connection established successfully.!')
 );
+
+//Serve static assets if in production
+if(process.env.NODE_ENV === 'production'){
+    //Set static folder
+    app.use(express.static('client/build'));
+
+    app.get('*', (req,res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
 
 //Start server
 app.listen(port, () => {

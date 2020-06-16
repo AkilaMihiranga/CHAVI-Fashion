@@ -21,7 +21,7 @@ function Products(props) {
     }, []);
 
     const getProducts = (variables) => {
-        axios.post('http://localhost:5000/product/get-products', variables)
+        axios.post('/product/get-products', variables)
         .then(response => {
             if (response.data.success) { 
                 if (variables.loadMore) {

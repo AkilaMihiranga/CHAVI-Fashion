@@ -8,7 +8,7 @@ function ProductImageGallery(props) {
             {props.detail.product_image && props.detail.product_image.map((image, index) => (
                 <div key={index}>
                     <img style={{ width: '100%', maxHeight: '150%' }}
-                        src={`http://localhost:5000/${image}`} alt="singleProduct" />
+                        src={`/${image}`} alt="singleProduct" />
                 </div>
             ))}
             </div>

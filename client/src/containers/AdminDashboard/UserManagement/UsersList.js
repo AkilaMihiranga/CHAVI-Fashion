@@ -30,7 +30,7 @@ export default class UsersList extends Component{
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/user/')
+        axios.get('/user/')
             .then(response => {
                 this.setState({
                     users: response.data.data.filter(el => el.userRole === 'user')
@@ -42,7 +42,7 @@ export default class UsersList extends Component{
     }
 
     deleteUser(id) {
-        axios.delete('http://localhost:5000/user/' +id)
+        axios.delete('/user/' +id)
             .then(res => console.log(res.data));
 
         this.setState({

@@ -18,7 +18,7 @@ function UploadProductpage(props) {
      const [Product_image, setProduct_image] = useState([]);
 
      useEffect(() => {
-        axios.get('http://localhost:5000/category/')
+        axios.get('/category/')
             .then(response => {
                 console.log(response.data.data);
                 setCategoryValue(response.data.data)
@@ -72,7 +72,7 @@ function UploadProductpage(props) {
             category: Category
         }
 
-        axios.post('http://localhost:5000/product/upload-product', variables)
+        axios.post('/product/upload-product', variables)
             .then(response => {
                 if (response.data.success) {
                     props.history.push('/product-list');

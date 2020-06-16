@@ -2,7 +2,6 @@ import React, {Component} from "react"
 import Header from "../../../components/Header/Header";
 import * as authActions from '../../../actions/authActions';
 import {connect} from 'react-redux';
-import {base_url} from "../../../constants/index";
 import './style.css';
 import Footer from '../../../components/Footer/index';
 
@@ -30,7 +29,7 @@ class Orders extends Component {
 
     getOrders = () => {
         console.log(this.props.auth.isAuthenticated);
-        fetch(`${base_url}/order/get-all-orders`, {
+        fetch(`/order/get-all-orders`, {
             headers: {
                 'Content-Type': 'application/json'
             }

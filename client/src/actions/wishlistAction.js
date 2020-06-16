@@ -1,5 +1,3 @@
-import { base_url } from "../constants/index";
-
 export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
 export const GET_WISHLIST_DETAILS = 'GET_WISHLIST_DETAILS';
 export const UPDATE_WISHLIST = 'UPDATE_WISHLIST';
@@ -8,7 +6,7 @@ export const CLEAR_WISHLIST = 'CLEAR_WISHLIST';
 export const addToWishlist = (token, wishlistItem) => {
     return async dispatch => {
         try{
-            const response = await fetch(`${base_url}/wishlist/add`, {
+            const response = await fetch(`/wishlist/add`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'auth-token': token
@@ -36,7 +34,7 @@ export const getWishlistItems = (token, user_id) => {
 
         try{
 
-            const response = await fetch(`${base_url}/wishlist/user/${user_id}`, {
+            const response = await fetch(`/wishlist/user/${user_id}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'auth-token': token
@@ -65,7 +63,7 @@ export const updateWishlist = (token, user_id, product) => {
     return async dispatch => {
         try{
 
-            const response = await fetch(`${base_url}/wishlist/update/quantity`,{
+            const response = await fetch(`/wishlist/update/quantity`,{
                 headers: {
                     'Content-Type': 'application/json',
                     'auth-token': token

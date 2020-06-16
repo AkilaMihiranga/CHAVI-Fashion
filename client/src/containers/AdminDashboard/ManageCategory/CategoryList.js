@@ -28,7 +28,7 @@ export default class CategoryList extends Component{
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/category/')
+        axios.get('/category/')
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -41,7 +41,7 @@ export default class CategoryList extends Component{
     }
 
     deleteCategory(id) {
-        axios.delete('http://localhost:5000/category/' +id)
+        axios.delete('/category/' +id)
             .then(res => console.log(res.data));
 
         this.setState({

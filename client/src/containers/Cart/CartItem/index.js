@@ -8,7 +8,7 @@ const CartItem = props => {
             <div className="SingleItem">
             <div className="ItemWrapper">
                 <div className="ItemImage" style={{width: '100px', height: '100px', overflow: 'hidden', position: 'relative'}}>
-                    <img style={{maxWidth: '100%', maxHeight: '100%', position: 'absolute', left: '50%', transform: 'translateX(-50%)'}} src={`http://localhost:5000/${props.image}`} alt="" />
+                    <img style={{maxWidth: '100%', maxHeight: '100%', position: 'absolute', left: '50%', transform: 'translateX(-50%)'}} src={`/${props.image}`} alt="" />
                 </div>
                 <div className="ItemDetails">
                     <p className="ItemName">{props.name}</p>

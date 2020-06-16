@@ -21,7 +21,7 @@ function ProductList(props) {
     }, []);
 
     const getProducts = (variables) => {
-        axios.post('http://localhost:5000/product/get-products', variables)
+        axios.post('/product/get-products', variables)
         .then(response => {
             if (response.data.success) { 
                 if (variables.loadMore) {
@@ -50,7 +50,7 @@ function ProductList(props) {
     }
 
     const onDeleteProduct = (id) => {
-        axios.delete('http://localhost:5000/product/delete-product/'+id)
+        axios.delete('/product/delete-product/'+id)
            .then(res =>{
                 console.log(res.data);
                 alert('Product Delete Successfully');

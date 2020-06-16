@@ -76,10 +76,10 @@ export default class AddStoreManager extends Component {
                 password: this.state.password
             }
     
-            axios.post('http://localhost:5000/storeManager/add-store-manager', storeManager)
+            axios.post('/storeManager/add-store-manager', storeManager)
                 .then(res => console.log(res.data));
     
-            axios.post('http://localhost:5000/email/storemanager-email', storeManager)
+            axios.post('/email/storemanager-email', storeManager)
                 .then(res => console.log(res.data));
                 
             window.location = '/store-managers-list';

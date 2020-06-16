@@ -21,7 +21,7 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/user/'+this.props.auth.user.user_id)
+        axios.get('/user/'+this.props.auth.user.user_id)
             .then(response => {
                 console.log(response);
                 this.setState({
@@ -83,7 +83,9 @@ class Profile extends Component {
                         </div>
                     </div>
                 </div><br/><br/><br/>
+                <div style={{marginTop: '150px'}}>
                 <Footer />
+                </div>
             </div>           
         );
     }

@@ -30,7 +30,7 @@ export default class AdminsList extends Component{
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/admin/')
+        axios.get('/admin/')
             .then(response => {
                 this.setState({
                     admins: response.data.data.filter(el => el.userRole === 'admin')
@@ -42,7 +42,7 @@ export default class AdminsList extends Component{
     }
 
     deleteAdmin(id) {
-        axios.delete('http://localhost:5000/admin/' +id)
+        axios.delete('/admin/' +id)
             .then(res => console.log(res.data));
 
         this.setState({
