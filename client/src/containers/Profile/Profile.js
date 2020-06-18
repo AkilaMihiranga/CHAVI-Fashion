@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-import axios from 'axios';
+import * as authActions from '../../actions/authActions';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/index';
 
@@ -21,22 +21,44 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        axios.get('/user/'+this.props.auth.user.user_id)
-            .then(response => {
-                console.log(response);
-                this.setState({
-                    id: response.data.data._id,
-                    first_Name: response.data.data.first_Name,
-                    last_Name: response.data.data.last_Name,
-                    email: response.data.data.email,
-                    gender: response.data.data.gender,
-                    contact_Number: response.data.data.contact_Number
-                })
+        if (!this.props.auth.isAuthenticated){
+            this.props.getToken()
+            .then(result => {
+                if(result){
+                    this.getProfileDetails();
+                }else{
+                    this.props.history.push('/login');
+                }
             })
-            .catch(function (error) {
+        }else{
+            this.getProfileDetails();
+        }
+    }
+
+    getProfileDetails = () => {
+        const user_id = this.props.auth.user.user_id;
+        fetch(`/user/${user_id}`, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+            .then(jsonResponse => {
+                console.log(jsonResponse);
+                this.setState({
+                    id: jsonResponse.data._id,
+                    first_Name: jsonResponse.data.first_Name,
+                    last_Name: jsonResponse.data.last_Name,
+                    email: jsonResponse.data.email,
+                    gender: jsonResponse.data.gender,
+                    contact_Number: jsonResponse.data.contact_Number
+                });
+            })
+            .catch(error => {
                 console.log(error);
             })
-    }
+    };
+
 
     render() {
         return (
@@ -95,6 +117,12 @@ const mapStateToProps = state => {
     return {
         auth: state.auth
     }
-}
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        getToken: () => dispatch(authActions.getToken())
+    }
+};
 
-export default connect(mapStateToProps)(Profile);
+
+export default  connect(mapStateToProps, mapDispatchToProps)(Profile);

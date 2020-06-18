@@ -152,7 +152,7 @@ export default class UpdatePassword extends Component {
                                 <div style={{fontSize:15, textAlign: "center", color: "red"}}>{this.state.currentPassNotMatchError}</div>
                                 <div style={{fontSize:15, textAlign: "center", color: "green"}}>{this.state.success}</div>
                                 <br/><button type="submit" className="btn btn-primary btn-block">Update Password</button><br/>
-                                <a href="/" className="btn btn-danger btn-block">Cancel</a>
+                                <a href="/my-account" className="btn btn-danger btn-block">Cancel</a>
                             </form>
                         </div>
                     </div>

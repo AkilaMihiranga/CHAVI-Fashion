@@ -219,7 +219,7 @@ export default class EditProfile extends Component {
                                 <div style={{fontSize:13, color: "red"}}>{this.state.errors.contact_Number}</div><br/>
                                 <div style={{fontSize:15, textAlign:"center", color: "green"}}>{this.state.success}</div><br/>
                                 <button type="submit" className="btn btn-primary btn-block">Update Profile</button><br/>
-                                <a href="/" className="btn btn-danger btn-block">Cancel</a>
+                                <a href="/my-account" className="btn btn-danger btn-block">Cancel</a>
                             </form>
                         </div>
                     </div>

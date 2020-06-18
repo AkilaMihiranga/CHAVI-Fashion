@@ -28,7 +28,6 @@ class Orders extends Component {
     }
 
     getOrders = () => {
-        console.log(this.props.auth.isAuthenticated);
         const token =  this.props.auth.token;
         const user_id = this.props.auth.user.user_id;
         fetch(`/order/getorders/${user_id}`, {
@@ -39,7 +38,6 @@ class Orders extends Component {
         })
             .then(response => response.json())
             .then(jsonResponse => {
-                console.log(jsonResponse);
                 this.setState({
                     ordersList: jsonResponse.message
                 });

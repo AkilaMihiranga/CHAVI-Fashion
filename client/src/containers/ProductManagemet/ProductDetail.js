@@ -89,7 +89,7 @@ class ProductDetail extends Component{
             this.setState({
                 Comments: response.data.data.filter(el => el.postId === id)
             })
-            console.log(this.state.Comments);
+            
         })
         .catch((error => {
             console.log(error);
@@ -113,11 +113,9 @@ class ProductDetail extends Component{
             quantity: 1,
             price: price
         }
-        console.log(cartItem);
+        
         this.props.addToCart(auth.token, cartItem)
         .then(response => {
-            //console.log(response);
-            console.log(this.props.cart);
         })
         .catch(error => {
             console.log(error);
@@ -140,11 +138,9 @@ class ProductDetail extends Component{
             quantity: 1,
             price: price
         }
-        console.log(wishlistItem);
         this.props.addToWishlist(auth.token, wishlistItem)
         .then(response => {
-            //console.log(response);
-            console.log(this.props.wishlist);
+        
         })
         .catch(error => {
             console.log(error);
