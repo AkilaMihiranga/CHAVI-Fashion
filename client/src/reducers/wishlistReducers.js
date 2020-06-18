@@ -1,4 +1,4 @@
-import { ADD_TO_WISHLIST, GET_WISHLIST_DETAILS, UPDATE_WISHLIST, CLEAR_WISHLIST } from "../actions/wishlistAction";
+import { ADD_TO_WISHLIST, GET_WISHLIST_DETAILS, UPDATE_WISHLIST, CLEAR_WISHLIST, DELETE_WISHLIST_ITEM } from "../actions/wishlistAction";
 
 const initState = {
     wishlistItem: [],
@@ -80,6 +80,22 @@ const wishlistReducers = (state = initState, actions) => {
                 wishlistItem: wishlistItems,
                 totalAmount: parseFloat(state.totalAmount) + parseFloat(updateItem.price * updateItem.newQuantity),
                 wishlistCount: parseInt(state.wishlistCount) + parseInt(updateItem.newQuantity)
+            }
+            break;
+        case DELETE_WISHLIST_ITEM:
+            const deleteItem = actions.item;
+            const dWishlistItems = state.wishlistItem.map(item => {
+                return item.product === deleteItem.productId ? 
+                {
+                    ...item,
+                    quantity: deleteItem.quantity,
+                    total: deleteItem.total
+                } : item
+            });
+            state = {
+                wishlistItem: dWishlistItems,
+                totalAmount: parseFloat(state.totalAmount) + parseFloat(deleteItem.price * deleteItem.newQuantity),
+                wishlistCount: parseInt(state.wishlistCount) + parseInt(deleteItem.newQuantity)
             }
             break;
         case CLEAR_WISHLIST:

@@ -68,21 +68,23 @@ export default class AdminsList extends Component{
                             <div className="row mt-1">
                                 <div className="col-md-12 m-auto">
                                     <div className="card border-primary card-body text-center">
-                                        <table className="table table-hover">
-                                            <thead>
-                                            <tr className="table-primary">
-                                                <th scope="col">First Name</th>
-                                                <th scope="col">Last Name</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Gender</th>
-                                                <th scope="col">Contact Number</th>
-                                                <th colSpan="2">Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {this.adminList()}
-                                            </tbody>
-                                        </table>
+                                        <div className="table-responsive" >
+                                            <table className="table table-hover">
+                                                <thead>
+                                                <tr className="table-primary">
+                                                    <th scope="col">First Name</th>
+                                                    <th scope="col">Last Name</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Gender</th>
+                                                    <th scope="col">Contact Number</th>
+                                                    <th colSpan="2">Actions</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {this.adminList()}
+                                                </tbody>
+                                            </table>
+                                        </div>  
                                     </div>
                                 </div>
                             </div>

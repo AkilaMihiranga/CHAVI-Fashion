@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Header from '../../components/Header/Header';
 import './style.css';
-import WishlistItem from './WishlistItem/index';
+import * as cartActions from '../../actions/cartAction';
 import * as wishlistActions from '../../actions/wishlistAction';
 import * as authActions from '../../actions/authActions';
 import {connect} from 'react-redux';
@@ -11,33 +11,7 @@ class Wishlist extends Component{
     state = {
         wishlistItems : []
     }
-    updateWishlist = async(productId, quantity) => {
-        try{
-            const auth = this.props.auth;
-            let product = this.state.wishlistItems.find(item => item.product === productId);
-            product = {
-                productId: product.product,
-                quantity: parseInt(product.quantity) + parseInt(quantity),
-                newQuantity: quantity,
-                price: product.price,
-                total: parseFloat(product.total) + parseFloat(product.price * quantity)
-            }
-            if(product.quantity <= 0){
-                return;
-            }
-            const response = await this.props.updateWishlist(auth.token, auth.user.user_id, product);
-            if(response.ok === 1){
-                const {wishlistItems} = this.state;
-                this.setState({
-                    wishlistItems: wishlistItems.map(item => item.product === productId?
-                        {...item, quantity: item.quantity + quantity, total: item.total + (item.price * quantity)}: item)
-                })
-            }
-
-        }catch (error) {
-            console.log(error);
-        }
-    }
+    
     componentDidMount() {
         if(!this.props.auth.isAuthenticated){
             this.props.getToken()
@@ -69,6 +43,57 @@ class Wishlist extends Component{
         }
     }
 
+    addToCart = (productId, price, name, image) => {
+
+        if(!this.props.auth.isAuthenticated){
+            this.props.history.push('/login');
+            return;
+        }
+
+        const { auth } = this.props;
+        const cartItem = {
+            user: auth.user.user_id,
+            product: productId,
+            name: name,
+            image: image,
+            quantity: 1,
+            price: price
+        }
+        this.props.addToCart(auth.token, cartItem)
+        .then(response => {
+            //console.log(response);
+            console.log(response.message.cart);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+    deleteWishlistItem = (productId) => {
+
+        if(!this.props.auth.isAuthenticated){
+            this.props.history.push('/login');
+            return;
+        }
+
+        const user_id = this.props.auth.user.user_id;
+        const product = {
+            productId: productId
+        }
+
+
+        this.props.deleteWishlistItem(user_id, product)
+        .then(response => {
+            //console.log(response);
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
+
+
     render(){
 
         return(
@@ -83,15 +108,28 @@ class Wishlist extends Component{
                             <div>
                                 {
                                     this.state.wishlistItems.map(product =>
-                                        <WishlistItem
-                                            key={product.product}
-                                            productId={product.product}
-                                            name={product.name}
-                                            image={product.image}
-                                            price={product.price}
-                                            quantity={product.quantity}
-                                            total={product.total}
-                                        />)
+                                        <div className="card card-body col-md-7 m-auto p-auto" key={product.product}>
+                                                <div className="SingleItem">
+                                                <div className="ItemWrapper">
+                                                    <div className="ItemImage" style={{width: '100px', height: '100px', overflow: 'hidden', position: 'relative'}}>
+                                                        <img style={{maxWidth: '100%', maxHeight: '100%', position: 'absolute', left: '50%', transform: 'translateX(-50%)'}} src={`/${product.image}`} alt="" />
+                                                    </div>
+                                                    <div className="ItemDetails">
+                                                        <p className="ItemName">{product.name}</p>
+                                                        <p className="ItemPrice">RS. {product.price}</p>
+                                                    </div>
+                                                    <div className="ItemDetails">
+                                                        <p></p>
+                                                        <a href="/wishlist" className="btn btn-info" onClick={() => { this.addToCart(product.product, product.price, product.name, product.image); this.deleteWishlistItem(product.product)}}><i className="fas fa-shopping-cart"></i>&nbsp;ADD TO CART</a>
+                                                    </div>
+                                                    <div className="ItemDetails">
+                                                        <p></p>
+                                                        <a href="/wishlist" className="btn btn-danger" onClick={() => { this.deleteWishlistItem(product.product) }}><i className="fas fa-trash-alt"></i>&nbsp;REMOVE</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        )
                                 }
                             </div>
                         </div>
@@ -100,7 +138,7 @@ class Wishlist extends Component{
 
                     </div>
                 </div><br/><br/><br/>
-                <div style={{marginTop: '300px'}}>
+                <div style={{marginTop: '650px'}}>
                 <Footer />
                 </div>
             </React.Fragment>
@@ -119,7 +157,9 @@ const mapDispatchToProps = dispatch => {
     return{
         getWishlistItems: (token, user_id) => dispatch(wishlistActions.getWishlistItems(token, user_id)),
         updateWishlist : (token, user_id, product) => dispatch(wishlistActions.updateWishlist(token, user_id, product)),
-        getToken : () => dispatch(authActions.getToken())
+        getToken : () => dispatch(authActions.getToken()),
+        addToCart: (token, cartItem) => dispatch(cartActions.addToCart(token, cartItem)),
+        deleteWishlistItem:(user_id, product) => dispatch(wishlistActions.deleteWishlistItem(user_id, product))
     }
 }
 

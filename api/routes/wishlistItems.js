@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router();
 const mongoose = require('mongoose')
 const WishlistItem = require('../models//wishlistItem');
+const { response } = require('express');
 
 
 router.post('/add', (req, res, next) => {
@@ -66,7 +67,7 @@ router.post('/add', (req, res, next) => {
 
             newWishlistItem
             .save()
-            .then(newCart => {
+            .then(newWishlist => {
                 res.status(201).json({
                     message: newWishlist
                 });
@@ -129,5 +130,25 @@ router.put('/update/quantity', (req, res, next) => {
     });
 
 });
+
+//remove wishlist item
+router.delete('/delete', (req, res, next) =>{
+    const user_id = req.body.user_id;
+    const productId = req.body.productId;
+
+    WishlistItem.findOneAndDelete({"user": user_id, "wishlist.product": productId})
+    .exec()
+    .then(response =>{
+        res.status(200).json({
+            message:response
+        });
+    })
+    .catch(error => {
+        res.status(500).json({
+            error:error
+        });
+    });
+});
+
 
 module.exports = router;

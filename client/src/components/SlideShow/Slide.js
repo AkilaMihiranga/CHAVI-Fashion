@@ -20,17 +20,17 @@ const Slideshow = () => {
             <Slide {...properties}>
                 <div className="each-slide">
                     <div>
-                        <img src={image1} alt="image1" />
+                        <img src={image1} alt="image1" className="img-fluid"/>
                     </div>
                 </div>
                 <div className="each-slide">
                     <div>
-                        <img src={image2} alt="image2" />
+                        <img src={image2} alt="image2" className="img-fluid"/>
                     </div>
                 </div>
                 <div className="each-slide">
                     <div>
-                        <img src={image3} alt="image3" />
+                        <img src={image3} alt="image3" className="img-fluid"/>
                     </div>
                 </div>
             </Slide>

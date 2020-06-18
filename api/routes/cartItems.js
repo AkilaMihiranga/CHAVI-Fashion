@@ -130,4 +130,23 @@ router.put('/update/quantity', (req, res, next) => {
 
 });
 
+//remove cart item
+router.delete('/delete', (req, res, next) =>{
+    const user_id = req.body.user_id;
+    const productId = req.body.productId;
+
+    CartItem.findOneAndDelete({"user": user_id, "cart.product": productId})
+    .exec()
+    .then(response =>{
+        res.status(200).json({
+            message:response
+        });
+    })
+    .catch(error => {
+        res.status(500).json({
+            error:error
+        });
+    });
+});
+
 module.exports = router;

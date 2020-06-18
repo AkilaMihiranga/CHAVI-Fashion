@@ -1,6 +1,7 @@
 export const ADD_TO_WISHLIST = 'ADD_TO_WISHLIST';
 export const GET_WISHLIST_DETAILS = 'GET_WISHLIST_DETAILS';
 export const UPDATE_WISHLIST = 'UPDATE_WISHLIST';
+export const DELETE_WISHLIST_ITEM = 'DELETE_WISHLIST_ITEM';
 export const CLEAR_WISHLIST = 'CLEAR_WISHLIST';
 
 export const addToWishlist = (token, wishlistItem) => {
@@ -82,6 +83,38 @@ export const updateWishlist = (token, user_id, product) => {
                 dispatch({
                     type: UPDATE_WISHLIST,
                     item: product
+                });
+            }
+
+            return jsonResposne.message;
+
+
+        }catch(error){
+            console.log(error);
+        }
+    }
+}
+
+export const deleteWishlistItem = (user_id, product) => {
+    return async dispatch => {
+        try{
+
+            const response = await fetch(`/wishlist/delete`,{
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'DELETE',
+                body: JSON.stringify({
+                    user_id: user_id,
+                    productId: product.productId
+                })
+            });
+            const jsonResposne = await response.json();
+
+            if(response.status === 201){
+                dispatch({
+                    type: DELETE_WISHLIST_ITEM,
+                    payload: null
                 });
             }
 

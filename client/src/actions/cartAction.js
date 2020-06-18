@@ -1,6 +1,7 @@
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const GET_CART_DETAILS = 'GET_CART_DETAILS';
 export const UPDATE_CART = 'UPDATE_CART';
+export const DELETE_CART_ITEM = 'DELETE_CART_ITEM';
 export const CLEAR_CART = 'CLEAR_CART';
 
 export const addToCart = (token, cartItem) => {
@@ -82,6 +83,38 @@ export const updateCart = (token, user_id, product) => {
                 dispatch({
                     type: UPDATE_CART,
                     item: product
+                });
+            }
+
+            return jsonResposne.message;
+
+
+        }catch(error){
+            console.log(error);
+        }
+    }
+}
+
+export const deleteCartItem = (user_id, product) => {
+    return async dispatch => {
+        try{
+
+            const response = await fetch(`/cart/delete`,{
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'DELETE',
+                body: JSON.stringify({
+                    user_id: user_id,
+                    productId: product.productId
+                })
+            });
+            const jsonResposne = await response.json();
+
+            if(response.status === 201){
+                dispatch({
+                    type: DELETE_CART_ITEM,
+                    payload: null
                 });
             }
 

@@ -3,7 +3,6 @@ import axios from 'axios';
 import Header from '../../Header/Header';
 import ProductImageSlider from "../../../containers/ProductManagemet/ProductImageSlider";
 import '../../../containers/ProductManagemet/productDesign.css';
-import './style.css';
 
 function AllProducts(props) {
 

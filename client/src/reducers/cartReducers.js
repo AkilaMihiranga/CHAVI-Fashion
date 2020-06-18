@@ -1,4 +1,4 @@
-import { ADD_TO_CART, GET_CART_DETAILS, UPDATE_CART, CLEAR_CART } from "../actions/cartAction";
+import { ADD_TO_CART, GET_CART_DETAILS, UPDATE_CART, CLEAR_CART, DELETE_CART_ITEM  } from "../actions/cartAction";
 
 const initState = {
     cartItem: [],
@@ -82,6 +82,22 @@ const cartReducers = (state = initState, actions) => {
                 cartCount: parseInt(state.cartCount) + parseInt(updateItem.newQuantity)
             }
             break;
+        case DELETE_CART_ITEM:
+            const deleteItem = actions.item;
+            const dCartItems = state.cartItem.map(item => {
+                return item.product === deleteItem.productId ? 
+                {
+                    ...item,
+                    quantity: deleteItem.quantity,
+                    total: deleteItem.total
+                } : item
+            });
+            state = {
+                cartItem: dCartItems,
+                totalAmount: parseFloat(state.totalAmount) + parseFloat(deleteItem.price * deleteItem.newQuantity),
+                cartCount: parseInt(state.cartCount) + parseInt(deleteItem.newQuantity)
+            }
+            break;    
         case CLEAR_CART:
             state = {
                 cartItem: [],

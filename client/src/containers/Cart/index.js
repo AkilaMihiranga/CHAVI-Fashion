@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import Header from '../../components/Header/Header';
-import CartItem from './CartItem';
 import * as cartActions from '../../actions/cartAction';
 import * as authActions from '../../actions/authActions';
 import {connect} from 'react-redux';
 import CartPrice from '../../components/CartPrice';
 import './style.css';
 import Footer from '../../components/Footer/index';
+import QuantityControl from '../../components/QuantityControl/index';
 class Cart extends Component{
     state = {
         cartItems : []
@@ -65,6 +65,29 @@ class Cart extends Component{
         // this.updateCart(productId, parseInt(e.target.value));
     }
 
+    deleteCartItem = (productId) => {
+
+        if(!this.props.auth.isAuthenticated){
+            this.props.history.push('/login');
+            return;
+        }
+
+        const user_id = this.props.auth.user.user_id;
+        const product = {
+            productId: productId
+        }
+
+
+        this.props.deleteCartItem(user_id, product)
+        .then(response => {
+            //console.log(response);
+            console.log(response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    }
+
     componentDidMount() {
         if(!this.props.auth.isAuthenticated){
             this.props.getToken()
@@ -112,19 +135,31 @@ class Cart extends Component{
 
                                 {
                                     this.state.cartItems.map(product =>
-                                        <CartItem
-                                            key={product.product}
-                                            productId={product.product}
-                                            name={product.name}
-                                            image={product.image}
-                                            price={product.price}
-                                            quantity={product.quantity}
-                                            total={product.total}
-                                            //name="quantity"
-                                            changeQuantity={this.changeQuantity}
-                                            increaseQuantity={this.increaseQuantity}
-                                            decreaseQuantity={this.decreaseQuantity}
-                                        />)
+                                        <div className="card card-body" key={product.product}>
+                                            <div className="SingleItem">
+                                            <div className="ItemWrapper">
+                                                <div className="ItemImage" style={{width: '100px', height: '100px', overflow: 'hidden', position: 'relative'}}>
+                                                    <img style={{maxWidth: '100%', maxHeight: '100%', position: 'absolute', left: '50%', transform: 'translateX(-50%)'}} src={`/${product.image}`} alt="" />
+                                                </div>
+                                                <div className="ItemDetails">
+                                                    <p className="ItemName">{product.name}</p>
+                                                    <p className="ItemPrice">Rs. {product.total}</p>
+                                                </div>
+                                            </div>
+                                            <div className="CartActionButtons">
+                                                <QuantityControl
+                                                    productId={product.product}
+                                                    name={product.name}
+                                                    quantity={product.quantity}
+                                                    changeQuantity={this.changeQuantity}
+                                                    increaseQuantity={this.increaseQuantity}
+                                                    decreaseQuantity={this.decreaseQuantity}
+                                                />
+                                                <a href="/cart" className="btn btn-danger" onClick={() => { this.deleteCartItem(product.product) }}><i className="fas fa-trash-alt"></i>&nbsp;REMOVE</a>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        )   
                                 }
                             </div>
                         </div>
@@ -133,7 +168,9 @@ class Cart extends Component{
 
                     </div>
                 </div><br/><br/><br/>
+                <div style={{marginTop: '550px'}}>
                 <Footer />
+                </div>
 
             </React.Fragment>
         );
@@ -151,7 +188,8 @@ const mapDispatchToProps = dispatch => {
     return{
         getCartItems: (token, user_id) => dispatch(cartActions.getCartItems(token, user_id)),
         updateCart : (token, user_id, product) => dispatch(cartActions.updateCart(token, user_id, product)),
-        getToken : () => dispatch(authActions.getToken())
+        getToken : () => dispatch(authActions.getToken()),
+        deleteCartItem:(user_id, product) => dispatch(cartActions.deleteCartItem(user_id, product))
     }
 }
 
